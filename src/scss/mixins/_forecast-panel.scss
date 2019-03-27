@@ -1,0 +1,11 @@
+.forecast-panel {
+  display: inline-block;
+  margin: .5rem;
+  border: 2px solid #3b3b3b;
+  border-radius: 0.625rem;
+  padding: 1rem;
+
+  & .icon {
+    width: 128px !important;
+  }
+}
