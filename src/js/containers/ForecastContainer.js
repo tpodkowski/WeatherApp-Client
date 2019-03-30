@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import Skycons from 'react-skycons';
 import {
   getForecast,
-  getGif,
 } from '../services/forecast';
+
+const getDateString = (timestamp) => {
+  const date = new Date(timestamp * 1000);
+  const cap = number => number < 10 ? `0${number}` : number;
+  return `${cap(date.getDay())}.${cap(date.getMonth() + 1)}.${date.getFullYear()}`
+};
 
 class ForecastContainer extends Component {
   constructor(props) {
@@ -23,56 +28,43 @@ class ForecastContainer extends Component {
 
   showPosition({ coords }) {
     const {
-      latitude,
-      longitude,
+      latitude: lat,
+      longitude: lng,
     } = coords;
 
-    getForecast({
-      lat: latitude,
-      lng: longitude,
-    }).then((response) => {
-      // const {
-      //   daily,
-      //   currently,
-      // } = response;
-      // console.log(response);
-      // this.setState({
-      //   daily: daily,
-      // });
-
-      // getGif({
-      //   tag: currently.summary,
-      // }).then(({ data }) => this.setState({ imageUrl: data.image_url }))
-    });
-
+    getForecast({ lat, lng })
+      .then(({ daily }) => this.setState({ daily }));
   }
 
   render() {
     const {
       daily,
-      imageUrl,
     } = this.state;
-    
+    console.log({ daily });
     return daily ? (
       <div>
-        <h1>{daily.summary}</h1>
         <div>
-          <img src={imageUrl} alt="" />
+          <h1>{daily.summary}</h1>
         </div>
-        {
-          daily.data.map((day, index) => (
-            <div className="forecast-panel" key={index}>
-              <div>
-                <small>{day.time}</small>
-                <small>{day.summary}</small>
-                <Skycons
-                  className="icon"
-                  icon={day.icon.toUpperCase().split('-').join('_')}
-                />
-              </div>
-            </div>
-          ))
-        }
+        <div className="forecast">
+          <h3 className="forecast__title">Prognoza:</h3>
+          <div className="forecast__container">
+            {
+              daily.data.map((day, index) => (
+                <div className="forecast__panel" key={index}>
+                  <Skycons
+                    className="icon"
+                    icon={day.icon.toUpperCase().split('-').join('_')}
+                  />
+                  <div>
+                    <small>{day.time ? getDateString(day.time) : ''}</small>
+                    <strong>{day.summary}</strong>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </div>
     ) : (<div>Loading...</div>);
   }

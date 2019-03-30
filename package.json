@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "i": "^0.3.6",
     "node-sass": "^4.11.0",
+    "npm": "^6.9.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-skycons": "^0.7.0"
