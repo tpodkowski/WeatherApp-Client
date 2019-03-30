@@ -1,0 +1,66 @@
+.sensors {
+  $sensors: &;
+  display: flex;
+  padding: 16px;
+  flex-wrap: wrap;
+  
+  &__item {
+    margin: .5rem;
+    border-radius: 0.625rem;
+    padding: 1rem;
+    box-shadow: 1px 2px 5px rgba(59, 59, 59, 0.2);
+
+    &:hover {
+      background: #fafafa;
+
+      #{$sensors}__remove-button {
+        display: block;
+      }
+    }
+  }
+
+  &__name {
+    font-size: 32px;
+    margin-top: 0;
+  }
+  
+  &__item-icon {
+    margin: 0;
+    font-size: 4rem;
+  }
+
+  &__action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 24px;
+  }
+
+  &__remove-button {
+    border-radius: 100%;
+    background: crimson;
+    color: white;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    font-weight: 700;
+    display: none;
+    cursor: pointer;
+  }
+
+  &__item-button {
+    min-width: 165px;
+    margin: .5rem;
+    border: 0;
+    border-radius: 0.625rem;
+    padding: 1rem;
+    box-shadow: 1px 2px 5px rgba(59, 59, 59, 0.2);
+    cursor: pointer;
+    color: limegreen;
+    outline: 0;
+
+    &:hover {
+      background: limegreen;
+      color: #fafafa;
+    }
+  }
+}
