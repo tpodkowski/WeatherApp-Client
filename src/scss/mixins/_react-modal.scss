@@ -1,0 +1,53 @@
+.ReactModal {
+  &__Overlay {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+  }
+
+  &__Content {
+    $width: 650;
+    width: #{$width}px !important;
+    left: calc(50% - #{$width / 2}px) !important;
+    margin: .5rem;
+    border-radius: 0.625rem !important;
+    padding: 1rem !important;
+    border: 0 !important;
+    box-shadow: 1px 2px 5px rgba(59, 59, 59, 0.4);
+    
+    input {
+      height: 24px;
+      width: 100%;
+      margin-top: 16px;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid #e4e4e4;
+    }
+  }
+
+  &__TopBar {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__Close {
+    border-radius: 100%;
+    background: crimson;
+    color: white;
+    border: 0;
+    width: 24px;
+    height: 24px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  &__SubmitButton {
+    border-radius: 0.625rem;
+    padding: 1rem;
+    background: limegreen;
+    color: white;
+    border: 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    cursor: pointer;
+    outline: none;
+  }
+}
