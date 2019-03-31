@@ -55,8 +55,8 @@ class App extends Component {
 
     return !isLoggedIn ? (
       <div>
-        <input placeholder="User" value={userName} onChange={this.onUserNameChange}/>
-        <input placeholder="Password" value={password} onChange={this.onPasswordChange}/>
+        <input type="text" placeholder="User" value={userName} onChange={this.onUserNameChange}/>
+        <input type="password" placeholder="Password" value={password} onChange={this.onPasswordChange}/>
         <button onClick={this.onLogin}>Login</button>
       </div>
     ) : (
