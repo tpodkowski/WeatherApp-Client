@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Podaj nazwe uzytkownika i haslo"
+AuthUserFile  /app/.htpasswd
+Require valid-user
