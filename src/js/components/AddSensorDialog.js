@@ -21,12 +21,11 @@ const AddSensorDialog = ({
         <input type="text" name="name" placeholder="Nazwa"/>
       </div>
       <div>
+        <pre>https://svr21.supla.org/direct/67/WzYZzmZMzEY2Y5gG/read</pre>
         <input
           type="text"
           name="url"
           placeholder="URL"
-          value="https://svr21.supla.org/direct/67/WzYZzmZMzEY2Y5gG/read"
-          onChange={() => {}}
         />
       </div>
       <div>
