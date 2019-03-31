@@ -9,9 +9,8 @@
     "npm": "^6.9.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "react-skycons": "^0.7.0"
-  },
-  "devDependencies": {
+    "react-modal": "^3.8.1",
+    "react-skycons": "^0.7.0",
     "react-scripts": "2.1.5"
   },
   "scripts": {

@@ -40,7 +40,7 @@ class ForecastContainer extends Component {
     const {
       daily,
     } = this.state;
-    console.log({ daily });
+
     return daily ? (
       <div>
         <div>

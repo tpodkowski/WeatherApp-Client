@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {
+  addSensor,
   getSensorsList,
   removeSensor,
 } from '../services/sensors';
+import AddSensorDialog from '../components/AddSensorDialog';
 
 class SensorsContainer extends Component {
   constructor(props) {
@@ -10,10 +12,12 @@ class SensorsContainer extends Component {
 
     this.state = {
       sensors: [],
+      isAddSensorModalOpen: false,
     }
 
-    this.addSensor = this.addSensor.bind(this);
+    this.toggleAddModal = this.toggleAddModal.bind(this);
     this.removeSensor = this.removeSensor.bind(this);
+    this.onSensorAdd = this.onSensorAdd.bind(this);
   }
 
   componentDidMount() {
@@ -26,13 +30,32 @@ class SensorsContainer extends Component {
       .then((sensors) => this.setState({ sensors }));
   }
 
-  addSensor() {
-    alert('Dodaj');
+  toggleAddModal() {
+    const { isAddSensorModalOpen } = this.state;
+    this.setState({
+      isAddSensorModalOpen: !isAddSensorModalOpen,
+    })
+  }
+
+  onSensorAdd(event) {
+    event.preventDefault();
+    const formData = {}
+    
+    new FormData(event.target).forEach((value, key) => {
+      formData[key] = value;
+    });
+    
+    addSensor(formData)
+      .then(sensors => this.setState({
+        sensors,
+        isAddSensorModalOpen: false,
+      }));
   }
 
   render() {
     const {
       sensors,
+      isAddSensorModalOpen,
     } = this.state;
 
     return sensors ? (
@@ -49,10 +72,15 @@ class SensorsContainer extends Component {
             </div>
           </div>
         ))}
-        <button className="sensors__item-button" onClick={this.addSensor}>
+        <button className="sensors__item-button" onClick={this.toggleAddModal}>
           <h1 className="sensors__item-icon">+</h1>
           <h1>Dodaj</h1>
         </button>
+        <AddSensorDialog
+          modalIsOpen={isAddSensorModalOpen}
+          onSubmit={this.onSensorAdd}
+          closeModal={this.toggleAddModal}
+        />
       </div>
     ) : (
       <div data-icon="ei-spinner-3" data-size="m"></div>
