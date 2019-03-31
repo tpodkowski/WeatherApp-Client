@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000/api'
+const url = 'https://desolate-waters-33760.herokuapp.com/api'
 
 export const getForecast = ({ lat, lng, days = 7 }) =>
   axios.get(`${url}/forecast`, { params: { lat, lng, days }})
