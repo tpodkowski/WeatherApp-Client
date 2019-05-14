@@ -13,3 +13,7 @@ export const removeSensor = id =>
 export const addSensor = data =>
   axios.post(`${url}/sensors`, data)
     .then(({data}) => data);
+
+export const getSensorHistory = id =>
+  axios.get(`${url}/history/${id}`)
+    .then(({data}) => data);

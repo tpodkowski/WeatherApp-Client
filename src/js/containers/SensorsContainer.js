@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   addSensor,
   getSensorsList,
@@ -18,6 +19,7 @@ class SensorsContainer extends Component {
     this.toggleAddModal = this.toggleAddModal.bind(this);
     this.removeSensor = this.removeSensor.bind(this);
     this.onSensorAdd = this.onSensorAdd.bind(this);
+    this.showHistory = this.showHistory.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +54,11 @@ class SensorsContainer extends Component {
       }));
   }
 
+  showHistory(id) {
+    const { history } = this.props;
+    history.push(`/history/${id}`)
+  }
+
   render() {
     const {
       sensors,
@@ -61,7 +68,7 @@ class SensorsContainer extends Component {
     return sensors ? (
       <div className="sensors">
         {sensors.map(({ id, name, measurements }, index) => (
-          <div key={index} className="sensors__item">
+          <div key={index} className="sensors__item" onClick={() => this.showHistory(id)}>
             <div className="sensors__action-buttons">
               <button className="sensors__remove-button" onClick={() => this.removeSensor(id)}>X</button>
             </div>
@@ -88,4 +95,4 @@ class SensorsContainer extends Component {
   }
 };
 
-export default SensorsContainer;
+export default withRouter(SensorsContainer);

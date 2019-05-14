@@ -1,31 +1,42 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import SensorsContainer from './js/containers/SensorsContainer';
 import ForecastContainer from './js/containers/ForecastContainer';
+import MeasurementHistoryContainer from './js/containers/MeasurementHistoryContainer';
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      window.sessionStorage.getItem('isLoggedIn') ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/login" }} />
+      )
+    }
+  />
+);
 
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       userName: '',
       password: '',
-      isLoggedIn: false,
-    }
+    };
 
     this.onUserNameChange = this.onUserNameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onLogin = this.onLogin.bind(this);
   }
 
-  onUserNameChange(event) {
-    this.setState({
-      userName: event.target.value,
-    });
+  onUserNameChange({ target : { value: userName}}) {
+    this.setState({ userName });
   }
 
-  onPasswordChange(event) {
-    this.setState({
-      password: event.target.value,
-    });
+  onPasswordChange({ target : { value: password}}) {
+    this.setState({ password });
   }
 
   onLogin() {
@@ -35,14 +46,11 @@ class App extends Component {
     } = this.state;
 
     if (password === 'admin' && userName === 'admin') {
-      this.setState({ 
-        isLoggedIn: true,
-      });
+      window.sessionStorage.setItem('isLoggedIn', true);
+      window.location.reload();
     } else {
-      this.setState({ 
-        password: '',
-        userName: '',
-      }, () => alert('Bledne dane!'));
+      window.sessionStorage.setItem('isLoggedIn', false);
+      alert('Bledne dane!')
     }
   }
 
@@ -50,21 +58,44 @@ class App extends Component {
     const {
       userName,
       password,
-      isLoggedIn,
     } = this.state;
+    const isLoggedIn = window.sessionStorage.getItem('isLoggedIn');
 
-    return !isLoggedIn ? (
-      <div>
-        <input type="text" placeholder="User" value={userName} onChange={this.onUserNameChange}/>
-        <input type="password" placeholder="Password" value={password} onChange={this.onPasswordChange}/>
-        <button onClick={this.onLogin}>Login</button>
-      </div>
-    ) : (
-      <div>
-        <SensorsContainer />
-        <ForecastContainer />
-      </div>
-    );
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" render={() => !isLoggedIn ? (
+            <div className="login-panel">
+              <input
+                type="text"
+                placeholder="User"
+                value={userName}
+                onChange={this.onUserNameChange}
+                autoComplete="off"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={this.onPasswordChange}
+                autoComplete="off"
+              />
+              <button onClick={this.onLogin}>Login</button>
+            </div>
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
+          )} />
+          <PrivateRoute path="/history/:id" component={MeasurementHistoryContainer} />
+          <PrivateRoute path="/" component={() => (
+            <div>
+              <SensorsContainer />
+              <ForecastContainer />
+            </div>
+          )}/>
+          <Redirect from="*" to="/login" />
+        </Switch>
+      </BrowserRouter>
+    )
   }
 };
 export default App;
