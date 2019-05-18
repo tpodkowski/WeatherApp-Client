@@ -21,7 +21,7 @@ const AddSensorDialog = ({
         <input type="text" name="name" placeholder="Nazwa"/>
       </div>
       <div>
-        <pre>https://svr21.supla.org/direct/67/WzYZzmZMzEY2Y5gG/read</pre>
+        <pre>https://svr7.supla.org/direct/320/R4jiNGRMwUMYZ2m/read</pre>
         <input
           type="text"
           name="url"
