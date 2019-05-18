@@ -67,8 +67,8 @@ class SensorsContainer extends Component {
 
     return sensors ? (
       <div className="sensors">
-        {sensors.map(({ id, name, measurements }, index) => (
-          <div key={index} className="sensors__item" onClick={() => this.showHistory(id)}>
+        {sensors.map(({ id, name, measurements, group }, index) => (
+          <div key={index} className="sensors__item" onClick={() => this.showHistory(id)} style={{ background: group }}>
             <div className="sensors__action-buttons">
               <button className="sensors__remove-button" onClick={() => this.removeSensor(id)}>X</button>
             </div>

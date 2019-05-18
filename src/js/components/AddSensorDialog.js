@@ -29,6 +29,17 @@ const AddSensorDialog = ({
         />
       </div>
       <div>
+        <label>
+          Grupa:
+          <select name="group">
+            <option value="aquamarine">Aquamarine</option>
+            <option value="cornflowerblue">Cornflowerblue</option>
+            <option value="coral">Coral</option>
+            <option value="deeppink">Deep pink</option>
+          </select>
+        </label>
+      </div>
+      <div>
         <button className="ReactModal__SubmitButton">Dodaj</button>
       </div>
     </form>
